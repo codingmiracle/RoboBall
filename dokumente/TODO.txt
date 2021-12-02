@@ -1,0 +1,4 @@
+- Matterialliste updaten
+- Material einkaufen
+- Platine entwickeln
+- ESP32 Motoransteuerung programmieren
