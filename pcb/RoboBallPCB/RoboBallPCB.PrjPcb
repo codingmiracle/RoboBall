@@ -72,6 +72,40 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=NNGMKRFN
 
+[Document3]
+DocumentPath=..\..\..\..\..\Altium Vorlagen\ALTIUM LIBRARIES\HTL-part-2018-02.pcblib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document4]
+DocumentPath=..\..\..\..\..\Altium Vorlagen\ALTIUM LIBRARIES\HTL-sym-2018-02.schlib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
 [Configuration1]
 Name=Sources
 ParameterCount=0
