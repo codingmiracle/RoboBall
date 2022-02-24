@@ -1,4 +1,5 @@
-#include <BluetoothSerial.h>
+#include <Arduino.h>
+#include <BluetoothSerial/src/BluetoothSerial.h>
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
@@ -27,11 +28,10 @@ class Motor {
 
 
 Motor::Motor(int p1, int p2, int freq, int res) {
-  int pin1 = p1;
-  int pin2 = p2;
-  int ch1 = lastchannel + 1;
-  int ch2 = lastchannel + 2;
-  int Speed = 0;
+  pin1 = p1;
+  pin2 = p2;
+  ch1 = lastchannel + 1;
+  ch2 = lastchannel + 2;
   lastchannel += 2;
 
   ledcSetup(ch1, freq, res);
@@ -51,10 +51,6 @@ void Motor::drive() {
     digitalWrite(pin1, LOW);
     ledcWrite(ch2, Speed * -1);
   }
-
-  /*
-  ledcwrite(Speed)
-  */
 }
 
 void Motor::setspeed(int s)
@@ -117,7 +113,7 @@ void loop() {
         digitalWrite(35, HIGH);
         digitalWrite(13, LOW);
       }
-
+      
       for(int i = 0; i < 30;i++) {
         command[i] = '\0';
       }
