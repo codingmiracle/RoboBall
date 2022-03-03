@@ -27,10 +27,9 @@ class Motor {
 Motor::Motor(int p1, int p2, int freq, int res) {
   int pin1 = p1;
   int pin2 = p2;
-  int ch1 = lastchannel + 1;
-  int ch2 = lastchannel + 2;
+  int ch1 = lastchannel++;
+  int ch2 = lastchannel++;
   int Speed = 0;
-  lastchannel += 2;
 
   ledcSetup(ch1, freq, res);
   ledcSetup(ch2, freq, res);
@@ -70,10 +69,10 @@ void Motor::backgroundActivity()
 // --- GLOBAL VARIABLES ---
 const int frequency = 5000;
 const int resolution = 8;
-const int testchannel = 1;
-const int testpin = 12;
-const int devchannel = 2;
-const int devpin = 13;
+int testchannel = 1;
+const int testpin = 14;
+int devchannel = 2;
+const int devpin = 27;
 BluetoothSerial SerialBT;
 
 //Motor Right(35, 34, frequency, resolution);
@@ -93,7 +92,9 @@ void setup() {
   ledcSetup(testchannel, frequency, resolution);
   ledcAttachPin(testpin, testchannel);
   ledcSetup(devchannel, frequency, resolution);
+  testchannel += 1;
   ledcAttachPin(devpin, testchannel);
+  testchannel -= 1;
 
 
   Serial.begin(115200);
@@ -122,8 +123,17 @@ void loop() {
       Serial.println("left");
     }
     speed = String(command).toInt();
-    ledcWrite(testchannel, speed);
-    ledcWrite(devchannel, 256 - speed);
+    Serial.println(speed);
+    if(speed >= 0) {
+      ledcWrite(testchannel, speed);
+      ledcWrite(devchannel, 0);
+    } else if(speed < 0) {
+      ledcWrite(testchannel, 0);
+      ledcWrite(devchannel, speed*-1);
+    } else {
+      ledcWrite(testchannel, 0);
+      ledcWrite(devchannel, 0);
+    }
   }
 
 }
