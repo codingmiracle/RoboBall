@@ -4,11 +4,9 @@
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
-const int frequency = 1000;
-const int resolution = 16;
-int lastchannel = 0;
-BluetoothSerial SerialBT;
 
+// --- CLASSES ---
+int lastchannel = 0;
 class Motor {
   private:
     int pin1;
@@ -69,11 +67,22 @@ void Motor::backgroundActivity()
   this->Speed -= 1;
 }
 
+// --- GLOBAL VARIABLES ---
+const int frequency = 5000;
+const int resolution = 8;
+const int testchannel = 1;
+const int testpin = 12;
+const int devchannel = 2;
+const int devpin = 13;
+BluetoothSerial SerialBT;
+
 //Motor Right(35, 34, frequency, resolution);
 //Motor Left(13, 12, frequency, resolution);
+
 char command[30] = "";
 int cmdp = 0;
 int cmdavailable = false;
+
 
 void setup() {
   pinMode(13, OUTPUT);
@@ -81,55 +90,40 @@ void setup() {
   pinMode(25, OUTPUT);
   pinMode(35, OUTPUT);
 
+  ledcSetup(testchannel, frequency, resolution);
+  ledcAttachPin(testpin, testchannel);
+  ledcSetup(devchannel, frequency, resolution);
+  ledcAttachPin(devpin, testchannel);
+
+
   Serial.begin(115200);
-  SerialBT.begin("ESPDavid"); //Bluetooth device name
-  Serial.println("The device started, now you can pair it with bluetooth!");
+  SerialBT.begin("RoboBall"); //Bluetooth device name
+  Serial.println("The Roboter started, now you can pair it with bluetooth!");
 }
+
 
 void loop() {
   int cmd;
+  int speed;
   if (SerialBT.available() && !cmdavailable ) {
     cmd = SerialBT.read();
     if (cmd == 10) {
-      command[cmdp] = '\0';
+      command[cmdp-1] = '\0';
       cmdp = 0;
       cmdavailable = 1;
     } else {
       command[cmdp++] = (char)lowByte(cmd);
     }
-
-    if (cmdavailable) {
-      cmdavailable = 0;
-      Serial.println(command); 
-      if (command[0] == 'f') {
-        digitalWrite(25, HIGH);
-        digitalWrite(12, HIGH);
-      } else if(command[0] == 'l') {
-        digitalWrite(12, HIGH);
-      } else if(command[0] == 'r') {
-        digitalWrite(25, HIGH);  
-      } else if(command[0] == 'b') {
-        digitalWrite(35, HIGH);
-        digitalWrite(13, HIGH);
-      } else if(command[0] == 's') {
-        digitalWrite(25, LOW);
-        digitalWrite(12, LOW);
-        digitalWrite(35, HIGH);
-        digitalWrite(13, LOW);
-      }
-
-      for(int i = 0; i < 30;i++) {
-        command[i] = '\0';
-      }
-    }
-
-
-
-    /*if(cmd == "stop") {
-      Right.Speed(0);
-      Left.Speed(0);
-      }*/
   }
-  //Right.backgroundActivity();
-  //Left.backgroundActivity();
+  if (cmdavailable) {
+    cmdavailable = 0;
+    Serial.println(command);
+    if (String(command) == "left") {
+      Serial.println("left");
+    }
+    speed = String(command).toInt();
+    ledcWrite(testchannel, speed);
+    ledcWrite(devchannel, 256 - speed);
+  }
+
 }
