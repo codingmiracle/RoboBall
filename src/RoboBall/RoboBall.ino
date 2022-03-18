@@ -17,25 +17,25 @@ private:
 
 public:
   int controlSpeed; //controls the speed
-  static const int updatedelay = 2000; //time in micros (* 256 = ramptime = time to go from 0 to max)
+  static const int updatedelay = 1000; //time in micros (* 256 = ramptime = time to go from 0 to max)
 
   Motor() {}
   Motor(int, int, int, int);
-  void setSpeed(int);  
+  void setSpeed(int);
   void drive();
   void adjustCurrentSpeed();
 };
 
 Motor::Motor(int p1, int p2, int freq, int res)
 {
-  int pin1 = p1;
-  int pin2 = p2;
-  int ch1 = lastchannel++;
-  int ch2 = lastchannel++;
-  int controlSpeed = 0; 
-  int currentSpeed = 0; 
- 
-  
+  pin1 = p1;
+  pin2 = p2;
+  ch1 = lastchannel;
+  lastchannel += 1;
+  ch2 = lastchannel;
+  lastchannel += 1;
+  controlSpeed = 0; 
+  currentSpeed = 0; 
 
   ledcSetup(ch1, freq, res);
   ledcSetup(ch2, freq, res);
@@ -46,6 +46,7 @@ Motor::Motor(int p1, int p2, int freq, int res)
 
 void Motor::adjustCurrentSpeed()
 { 
+  int lcurrentSpeed = currentSpeed;
   //update currentSpeed
   if(controlSpeed > currentSpeed) {
     currentSpeed += 1;
@@ -53,12 +54,13 @@ void Motor::adjustCurrentSpeed()
     currentSpeed -= 1;
   }
   //set new currentSpeed
+  if(currentSpeed != lcurrentSpeed) {
   if (currentSpeed == 0)
   {
-    digitalWrite(pin1, LOW);
-    digitalWrite(pin2, LOW);
+    ledcWrite(ch1, currentSpeed);
+    ledcWrite(ch2, currentSpeed);
   }
-  else if (currentSpeed > 0 && currentSpeed <= 256)
+  else if (currentSpeed >= 0 && currentSpeed <= 256)
   {
     digitalWrite(pin2, LOW);
     ledcWrite(ch1, currentSpeed);
@@ -67,6 +69,7 @@ void Motor::adjustCurrentSpeed()
   {
     digitalWrite(pin1, LOW);
     ledcWrite(ch2, currentSpeed * -1);
+  }
   }
 }
 
@@ -102,17 +105,12 @@ void Motor::drive()
 const int motorpins[] = {12,13,26,27};
 const int frequency = 5000;
 const int resolution = 8;
-int testchannel = 1;
-const int testpin = 26;
-int devchannel = 2;
-const int devpin = 27;
 
-
+// --- MAIN VARIABLES ---
 BluetoothSerial SerialBT;
 hw_timer_t * timer; // our timer
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
-Motor motor;
 Motor mRight(motorpins[0], motorpins[1], frequency, resolution);
 Motor mLeft(motorpins[2], motorpins[3], frequency, resolution);
 
@@ -135,16 +133,9 @@ void setup()
     pinMode(motorpins[i], OUTPUT);
   }
 
-  pinMode(testpin, OUTPUT);
-  pinMode(devpin, OUTPUT);
-  ledcSetup(testchannel, frequency, resolution);
-  ledcAttachPin(testpin, testchannel);
-  ledcSetup(devchannel, frequency, resolution);
-  ledcAttachPin(devpin, devchannel);
-  
   timer = timerBegin(0, 240, true);
   timerAttachInterrupt(timer, onIntervallUpdate, true);
-  timerAlarmWrite(timer, motor.updatedelay, true);
+  timerAlarmWrite(timer, mRight.updatedelay, true);
   timerAlarmEnable(timer);
 
   Serial.begin(115200);
@@ -184,21 +175,6 @@ void loop()
     Serial.println(spd);
 
     mRight.setSpeed(spd);
-    // motor action
-    if (spd > 0)
-    {
-      ledcWrite(testchannel, spd);
-      ledcWrite(devchannel, 0);
-    }
-    else if (spd < 0)
-    {
-      ledcWrite(testchannel, 0);
-      ledcWrite(devchannel, spd * -1);
-    }
-    else
-    {
-      ledcWrite(testchannel, 0);
-      ledcWrite(devchannel, 0);
-    }
+    mLeft.setSpeed(spd);
   }
 }
