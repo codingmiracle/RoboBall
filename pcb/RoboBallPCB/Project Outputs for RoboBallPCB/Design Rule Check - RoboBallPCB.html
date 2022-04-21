@@ -1,0 +1,555 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD17\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">07.04.2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">14:58:39</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc" class="file"><acronym title="C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc">C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">69</td></tr>
+</table>
+</td>
+</table><a name="IDFIQ0HACI4V3T1OT1DO22GT0IILMC4OU21DGOLLZG3GDZCDZBRGJ"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOQOB5UXZFAKDCQHM4IS2XHTMUMB0KT2NPQU1NPNBZOGHYPPCOUHP">Clearance Constraint (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQ14ZUSXANXVWEPHK5YLALU4RHMT1WNNTPTTOYTCXBIFXSNT0ZW4D">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWX1SWJCVKNYFIME0Q4F3WXHIFFGYDX00YJXTGLB5M1XRDHF4XBV">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIXTSZG4WSBQHPB200XEMLMDAUKHLQ0TOJ4ZAE0FFLSTEUR2V5O4I">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVUI4AK0RVKCPD2MPAGHBK44MEFUGTIUGUPNBXZOCLVTJKLNB1VYP">Width Constraint (Min=0.4mm) (Max=6mm) (Preferred=0.75mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEW05GIHDF3BYJQVEWFCH5RNUEL3XJFRDQ3D0AQBSIGKHAKDJVQSK">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCED3S4UI03J4G30K3FSY2FZEGD3V1XNYKQV5LAGKCOM1UT1ZZ4YI">Minimum Annular Ring (Minimum=0.5mm) (All)</a></td>
+<td class="column2">12</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKDSKBV0MJJE0IU14GZTOTISGZNTLSWYEK5W2QYPWI0QS1SI25OAJ">Hole Size Constraint (Min=0.75mm) (Max=4.1mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDF4AXUCMFNMJULKAE05CC41IZRGK1DXZ1CCIYAGHL4SWUJTZTRI2J">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXLCTIYF4DQ5UPXEW5V21045OORLXIZOC0C1M3HGHRVRVEXNDTEO">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYSM031DZD5Q2DCQ2Z2PCFRALHLMA4WRVLOWDTGNIFAMKD44W1DSH">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">36</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTOUOM4RUQVCDK2ZUCA2PXLISUIOMASFRHT010LEAXFRH0W433O3F">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">9</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXVX2C4TVZMSYKNOF0AGRKKI4OFBW1YXAVUWCGY25B2ML2YTLAZM">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQS1124PHG1THBXNCKKKRK24XSP5G1BP24142MYPUTTQ5DHR4LA4J">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">69</td>
+</tr>
+</table><br><a name="IDWX1SWJCVKNYFIME0Q4F3WXHIFFGYDX00YJXTGLB5M1XRDHF4XBV"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6606.63mil|Location2.X=6693.37mil|Location1.Y=1076.315mil|Location2.Y=1390.417mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6606.63mil|Location2.X=6693.37mil|Location1.Y=1076.315mil|Location2.Y=1390.417mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q5-3(168.91mm,27.94mm) on Multi-Layer And Pad Q6-2(168.91mm,34.29mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5906.63mil|Location2.X=5993.37mil|Location1.Y=1076.315mil|Location2.Y=1490.417mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5906.63mil|Location2.X=5993.37mil|Location1.Y=1076.315mil|Location2.Y=1490.417mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q3-3(151.13mm,27.94mm) on Multi-Layer And Pad Q1-2(151.13mm,36.83mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6609.583mil|Location2.X=6790.417mil|Location1.Y=1309.583mil|Location2.Y=1690.417mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6609.583mil|Location2.X=6790.417mil|Location1.Y=1309.583mil|Location2.Y=1690.417mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q6-2(168.91mm,34.29mm) on Multi-Layer And Pad J5-2(171.45mm,41.91mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5906.63mil|Location2.X=6693.37mil|Location1.Y=1076.315mil|Location2.Y=1123.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5906.63mil|Location2.X=6693.37mil|Location1.Y=1076.315mil|Location2.Y=1123.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q3-3(151.13mm,27.94mm) on Multi-Layer And Pad Q5-3(168.91mm,27.94mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDCED3S4UI03J4G30K3FSY2FZEGD3V1XNYKQV5LAGKCOM1UT1ZZ4YI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Annular Ring (Minimum=0.5mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q4-1(162.56mm,30.48mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q4-2(162.56mm,29.21mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6389.533mil|Location2.X=6421.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q4-3(162.56mm,27.94mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q2-1(156.21mm,30.48mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q2-2(156.21mm,29.21mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6139.533mil|Location2.X=6171.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q2-3(156.21mm,27.94mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q5-1(168.91mm,30.48mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q5-2(168.91mm,29.21mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6639.533mil|Location2.X=6671.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q5-3(168.91mm,27.94mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1207.249mil|Location2.Y=1228.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q3-1(151.13mm,30.48mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1157.249mil|Location2.Y=1178.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q3-2(151.13mm,29.21mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5939.533mil|Location2.X=5971.885mil|Location1.Y=1107.249mil|Location2.Y=1128.184mil|Absolute=True">Minimum Annular Ring: (0.1mm &lt; 0.5mm) Pad Q3-3(151.13mm,27.94mm) on Multi-Layer (Annular Ring=0.1mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDXLCTIYF4DQ5UPXEW5V21045OORLXIZOC0C1M3HGHRVRVEXNDTEO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6374.69mil|Location2.X=6385.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6374.69mil|Location2.X=6385.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q4-2(162.56mm,29.21mm) on Multi-Layer And Pad Q4-1(162.56mm,30.48mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6374.69mil|Location2.X=6385.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6374.69mil|Location2.X=6385.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q4-3(162.56mm,27.94mm) on Multi-Layer And Pad Q4-2(162.56mm,29.21mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6124.69mil|Location2.X=6135.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6124.69mil|Location2.X=6135.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q2-2(156.21mm,29.21mm) on Multi-Layer And Pad Q2-1(156.21mm,30.48mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6124.69mil|Location2.X=6135.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6124.69mil|Location2.X=6135.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q2-3(156.21mm,27.94mm) on Multi-Layer And Pad Q2-2(156.21mm,29.21mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6624.69mil|Location2.X=6635.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6624.69mil|Location2.X=6635.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q5-2(168.91mm,29.21mm) on Multi-Layer And Pad Q5-1(168.91mm,30.48mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6624.69mil|Location2.X=6635.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6624.69mil|Location2.X=6635.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q5-3(168.91mm,27.94mm) on Multi-Layer And Pad Q5-2(168.91mm,29.21mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5924.69mil|Location2.X=5935.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5924.69mil|Location2.X=5935.94mil|Location1.Y=1169.375mil|Location2.Y=1180.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q3-2(151.13mm,29.21mm) on Multi-Layer And Pad Q3-1(151.13mm,30.48mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5924.69mil|Location2.X=5935.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5924.69mil|Location2.X=5935.94mil|Location1.Y=1119.375mil|Location2.Y=1130.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.067mm &lt; 0.254mm) Between Pad Q3-3(151.13mm,27.94mm) on Multi-Layer And Pad Q3-2(151.13mm,29.21mm) on Multi-Layer [Top Solder] Mask Sliver [0.067mm] / [Bottom Solder] Mask Sliver [0.067mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYSM031DZD5Q2DCQ2Z2PCFRALHLMA4WRVLOWDTGNIFAMKD44W1DSH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6519.877mil|Location2.X=6527.544mil|Location1.Y=1443.258mil|Location2.Y=1450.925mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6519.877mil|Location2.X=6527.544mil|Location1.Y=1443.258mil|Location2.Y=1450.925mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (166.367mm,33.909mm) on Top Overlay And Pad Q6-1(166.37mm,36.83mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.167mil|Location2.X=6668.833mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.167mil|Location2.X=6668.833mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (166.367mm,33.909mm) on Top Overlay And Pad Q6-2(168.91mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.949mil|Location2.X=6438.616mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.949mil|Location2.X=6438.616mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (166.367mm,33.909mm) on Top Overlay And Pad Q6-3(163.83mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.167mil|Location2.X=6853.833mil|Location1.Y=1196.167mil|Location2.Y=1203.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.167mil|Location2.X=6853.833mil|Location1.Y=1196.167mil|Location2.Y=1203.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (172.72mm,30.48mm) on Top Overlay And Pad J3-1(172.72mm,30.48mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5846.167mil|Location2.X=5853.833mil|Location1.Y=1196.167mil|Location2.Y=1203.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5846.167mil|Location2.X=5853.833mil|Location1.Y=1196.167mil|Location2.Y=1203.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (147.32mm,30.48mm) on Top Overlay And Pad J2-1(147.32mm,30.48mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5931.167mil|Location2.X=5938.833mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5931.167mil|Location2.X=5938.833mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (153.673mm,37.211mm) on Top Overlay And Pad Q1-2(151.13mm,36.83mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6014.404mil|Location2.X=6022.071mil|Location1.Y=1350.558mil|Location2.Y=1358.225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6014.404mil|Location2.X=6022.071mil|Location1.Y=1350.558mil|Location2.Y=1358.225mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (153.673mm,37.211mm) on Top Overlay And Pad Q1-1(153.67mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6161.384mil|Location2.X=6169.051mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6161.384mil|Location2.X=6169.051mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (153.673mm,37.211mm) on Top Overlay And Pad Q1-3(156.21mm,36.83mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6796.167mil|Location2.X=6803.833mil|Location1.Y=1946.167mil|Location2.Y=1953.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6796.167mil|Location2.X=6803.833mil|Location1.Y=1946.167mil|Location2.Y=1953.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (171.45mm,49.53mm) on Top Overlay And Pad J4-1(171.45mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5896.167mil|Location2.X=5903.833mil|Location1.Y=1946.167mil|Location2.Y=1953.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5896.167mil|Location2.X=5903.833mil|Location1.Y=1946.167mil|Location2.Y=1953.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (148.59mm,49.53mm) on Top Overlay And Pad J1-1(148.59mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6703.666mil|Location2.X=6714.916mil|Location1.Y=1736.004mil|Location2.Y=1747.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6703.666mil|Location2.X=6714.916mil|Location1.Y=1736.004mil|Location2.Y=1747.254mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,40.64mm)(170.18mm,45.72mm) on Top Overlay And Pad J5-1(171.45mm,44.45mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6785.084mil|Location2.X=6796.334mil|Location1.Y=1707.958mil|Location2.Y=1719.208mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6785.084mil|Location2.X=6796.334mil|Location1.Y=1707.958mil|Location2.Y=1719.208mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (172.72mm,40.64mm)(172.72mm,45.72mm) on Top Overlay And Pad J5-1(171.45mm,44.45mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6707.958mil|Location2.X=6719.208mil|Location1.Y=1703.666mil|Location2.Y=1714.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6707.958mil|Location2.X=6719.208mil|Location1.Y=1703.666mil|Location2.Y=1714.916mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,43.18mm)(172.72mm,43.18mm) on Top Overlay And Pad J5-1(171.45mm,44.45mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6707.958mil|Location2.X=6719.208mil|Location1.Y=1785.084mil|Location2.Y=1796.334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6707.958mil|Location2.X=6719.208mil|Location1.Y=1785.084mil|Location2.Y=1796.334mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,45.72mm)(172.72mm,45.72mm) on Top Overlay And Pad J5-1(171.45mm,44.45mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6703.658mil|Location2.X=6714.908mil|Location1.Y=1644.375mil|Location2.Y=1655.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6703.658mil|Location2.X=6714.908mil|Location1.Y=1644.375mil|Location2.Y=1655.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,40.64mm)(170.18mm,45.72mm) on Top Overlay And Pad J5-2(171.45mm,41.91mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6785.092mil|Location2.X=6796.342mil|Location1.Y=1644.375mil|Location2.Y=1655.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6785.092mil|Location2.X=6796.342mil|Location1.Y=1644.375mil|Location2.Y=1655.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (172.72mm,40.64mm)(172.72mm,45.72mm) on Top Overlay And Pad J5-2(171.45mm,41.91mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6744.375mil|Location2.X=6755.625mil|Location1.Y=1685.092mil|Location2.Y=1696.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6744.375mil|Location2.X=6755.625mil|Location1.Y=1685.092mil|Location2.Y=1696.342mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,43.18mm)(172.72mm,43.18mm) on Top Overlay And Pad J5-2(171.45mm,41.91mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6744.375mil|Location2.X=6755.625mil|Location1.Y=1603.658mil|Location2.Y=1614.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6744.375mil|Location2.X=6755.625mil|Location1.Y=1603.658mil|Location2.Y=1614.908mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.218mm &lt; 0.254mm) Between Track (170.18mm,40.64mm)(172.72mm,40.64mm) on Top Overlay And Pad J5-2(171.45mm,41.91mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.218mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.167mil|Location2.X=6453.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.167mil|Location2.X=6453.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (163.83mm,47.498mm)(163.83mm,48.514mm) on Top Overlay And Pad R3-2(163.83mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.167mil|Location2.X=6453.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.167mil|Location2.X=6453.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (163.83mm,40.386mm)(163.83mm,41.402mm) on Top Overlay And Pad R3-1(163.83mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6456.154mil|Location2.X=6463.82mil|Location1.Y=1526.164mil|Location2.Y=1533.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6456.154mil|Location2.X=6463.82mil|Location1.Y=1526.164mil|Location2.Y=1533.83mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q6" (163.068mm,38.608mm) on Top Overlay And Pad R3-1(163.83mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6146.167mil|Location2.X=6153.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6146.167mil|Location2.X=6153.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (156.21mm,47.498mm)(156.21mm,48.514mm) on Top Overlay And Pad R2-2(156.21mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6146.167mil|Location2.X=6153.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6146.167mil|Location2.X=6153.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (156.21mm,40.386mm)(156.21mm,41.402mm) on Top Overlay And Pad R2-1(156.21mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6636.654mil|Location2.X=6644.32mil|Location1.Y=1324.65mil|Location2.Y=1332.317mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6636.654mil|Location2.X=6644.32mil|Location1.Y=1324.65mil|Location2.Y=1332.317mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q5" (167.653mm,32.474mm) on Top Overlay And Pad Q6-2(168.91mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.167mil|Location2.X=6668.833mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.167mil|Location2.X=6668.833mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (163.443mm,33.909mm)(169.291mm,33.909mm) on Top Overlay And Pad Q6-2(168.91mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6437.138mil|Location2.X=6444.804mil|Location1.Y=1326.103mil|Location2.Y=1333.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6437.138mil|Location2.X=6444.804mil|Location1.Y=1326.103mil|Location2.Y=1333.77mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q4" (161.315mm,32.487mm) on Top Overlay And Pad Q6-3(163.83mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.949mil|Location2.X=6438.616mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6430.949mil|Location2.X=6438.616mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (163.443mm,33.909mm)(169.291mm,33.909mm) on Top Overlay And Pad Q6-3(163.83mm,34.29mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6596.167mil|Location2.X=6603.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6596.167mil|Location2.X=6603.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (167.64mm,47.498mm)(167.64mm,48.514mm) on Top Overlay And Pad R4-2(167.64mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6596.167mil|Location2.X=6603.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6596.167mil|Location2.X=6603.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (167.64mm,40.386mm)(167.64mm,41.402mm) on Top Overlay And Pad R4-1(167.64mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6755.412mil|Location2.X=6763.079mil|Location1.Y=1168.017mil|Location2.Y=1175.683mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6755.412mil|Location2.X=6763.079mil|Location1.Y=1168.017mil|Location2.Y=1175.683mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "1" (171.185mm,29.765mm) on Top Overlay And Pad J3-1(172.72mm,30.48mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5961.154mil|Location2.X=5968.82mil|Location1.Y=1546.167mil|Location2.Y=1553.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5961.154mil|Location2.X=5968.82mil|Location1.Y=1546.167mil|Location2.Y=1553.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q1" (150.368mm,38.608mm) on Top Overlay And Pad R1-2(152.4mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5996.167mil|Location2.X=6003.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5996.167mil|Location2.X=6003.833mil|Location1.Y=1582.601mil|Location2.Y=1590.267mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (152.4mm,40.386mm)(152.4mm,41.402mm) on Top Overlay And Pad R1-2(152.4mm,39.37mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5996.167mil|Location2.X=6003.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5996.167mil|Location2.X=6003.833mil|Location1.Y=1912.167mil|Location2.Y=1919.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (152.4mm,47.498mm)(152.4mm,48.514mm) on Top Overlay And Pad R1-1(152.4mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5931.167mil|Location2.X=5938.833mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5931.167mil|Location2.X=5938.833mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (150.749mm,37.211mm)(156.597mm,37.211mm) on Top Overlay And Pad Q1-2(151.13mm,36.83mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6161.384mil|Location2.X=6169.051mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6161.384mil|Location2.X=6169.051mil|Location1.Y=1461.167mil|Location2.Y=1468.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (150.749mm,37.211mm)(156.597mm,37.211mm) on Top Overlay And Pad Q1-3(156.21mm,36.83mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6739.826mil|Location2.X=6751.076mil|Location1.Y=1894.458mil|Location2.Y=1905.708mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6739.826mil|Location2.X=6751.076mil|Location1.Y=1894.458mil|Location2.Y=1905.708mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.006mm &lt; 0.254mm) Between Text "J5" (170.307mm,46.609mm) on Top Overlay And Pad J4-1(171.45mm,49.53mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.006mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDTOUOM4RUQVCDK2ZUCA2PXLISUIOMASFRHT010LEAXFRH0W433O3F"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.114mil|Location2.X=6668.781mil|Location1.Y=1334.647mil|Location2.Y=1342.314mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6661.114mil|Location2.X=6668.781mil|Location1.Y=1334.647mil|Location2.Y=1342.314mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q5" (167.653mm,32.474mm) on Top Overlay And Arc (166.367mm,33.909mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6434.082mil|Location2.X=6441.748mil|Location1.Y=1335.259mil|Location2.Y=1342.926mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6434.082mil|Location2.X=6441.748mil|Location1.Y=1335.259mil|Location2.Y=1342.926mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q4" (161.315mm,32.487mm) on Top Overlay And Arc (166.367mm,33.909mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6754.844mil|Location2.X=6762.511mil|Location1.Y=1168.017mil|Location2.Y=1175.683mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6754.844mil|Location2.X=6762.511mil|Location1.Y=1168.017mil|Location2.Y=1175.683mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "1" (171.185mm,29.765mm) on Top Overlay And Arc (172.72mm,30.48mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6741.392mil|Location2.X=6749.058mil|Location1.Y=1893.76mil|Location2.Y=1901.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6741.392mil|Location2.X=6749.058mil|Location1.Y=1893.76mil|Location2.Y=1901.427mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "J5" (170.307mm,46.609mm) on Top Overlay And Arc (171.45mm,49.53mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6080.589mil|Location2.X=6091.839mil|Location1.Y=1116.288mil|Location2.Y=1127.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6080.589mil|Location2.X=6091.839mil|Location1.Y=1116.288mil|Location2.Y=1127.538mil|Absolute=True">Silk To Silk Clearance Constraint: (0.22mm &lt; 0.254mm) Between Text "3" (153.405mm,27.247mm) on Top Overlay And Track (154.8mm,27.24mm)(154.8mm,31.18mm) on Top Overlay Silk Text to Silk Clearance [0.22mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.161mil|Location2.X=6453.828mil|Location1.Y=1580.657mil|Location2.Y=1588.324mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6446.161mil|Location2.X=6453.828mil|Location1.Y=1580.657mil|Location2.Y=1588.324mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q6" (163.068mm,38.608mm) on Top Overlay And Track (163.83mm,40.386mm)(163.83mm,41.402mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6636.654mil|Location2.X=6644.32mil|Location1.Y=1327.909mil|Location2.Y=1335.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6636.654mil|Location2.X=6644.32mil|Location1.Y=1327.909mil|Location2.Y=1335.575mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q5" (167.653mm,32.474mm) on Top Overlay And Track (163.443mm,33.909mm)(169.291mm,33.909mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6437.138mil|Location2.X=6444.804mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6437.138mil|Location2.X=6444.804mil|Location1.Y=1331.167mil|Location2.Y=1338.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "Q4" (161.315mm,32.487mm) on Top Overlay And Track (163.443mm,33.909mm)(169.291mm,33.909mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. P%C3%B6lten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5989.01mil|Location2.X=6000.429mil|Location1.Y=1579.012mil|Location2.Y=1590.262mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\dagra\OneDrive - HTBLuVA St. Pölten\HTL\4. Klasse\PBE\RoboBall\pcb\RoboBallPCB\RoboBallPCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5989.01mil|Location2.X=6000.429mil|Location1.Y=1579.012mil|Location2.Y=1590.262mil|Absolute=True">Silk To Silk Clearance Constraint: (0.081mm &lt; 0.254mm) Between Text "Q1" (150.368mm,38.608mm) on Top Overlay And Track (152.4mm,40.386mm)(152.4mm,41.402mm) on Top Overlay Silk Text to Silk Clearance [0.081mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

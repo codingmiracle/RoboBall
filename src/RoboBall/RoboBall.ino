@@ -1,4 +1,5 @@
 #include <BluetoothSerial.h>
+#include <ArduinoJson.h>
 
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -98,12 +99,21 @@ void Motor::drive()
   }
 }
 
-
+int* getSpeedFromJson(String str) {
+  int* speeds = new int[2]; //2 speeds expected
+  StaticJsonBuffer<50> jsonBuffer;
+  JsonObject& motordata = jsonBuffer.parseObject(str);
+  if(!motordata.success()) {
+    Serial.println("parseObject() failed");
+    return false;
+  }
+  return speeds;
+}
 
 
 // --- GLOBAL VARIABLES ---
 const int motorpins[] = {12,13,26,27};
-const int frequency = 5000;
+const int frequency = 1000;
 const int resolution = 8;
 
 // --- MAIN VARIABLES ---
